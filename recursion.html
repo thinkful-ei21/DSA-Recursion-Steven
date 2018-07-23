@@ -43,6 +43,11 @@
         <input type="text" id="factorial-input" placeholder="Enter number">
         <button type="submit" id="factorial-button">Get the factorial</button>
       </form>
+      <h3 id="fibonacci-form-title">Factorial</h3>
+      <form id="fibonacci-form">
+        <input type="text" id="fibonacci-input" placeholder="Enter number">
+        <button type="submit" id="fibonacci-button">Get the factorial</button>
+      </form>
     </div>
     <div class="row" id="results">
       <!-- results go here -->
@@ -98,8 +103,24 @@
         };
 
         const factorial = (num) => {
-          if(num < 2)   return 1;
+          if(num < 2) {
+            return 1;
+          }
           return num * factorial(num-1);
+        };
+
+        const fibonacci = (num, count=0, arr=[]) => {
+          // console.log(num);
+          // return;
+          if(num < 1) {
+            return arr;
+          }
+          if(count < 2) {
+            arr.push(1);
+            return fibonacci(num-1, count+1, arr);
+          }
+          arr.push(arr[arr.length-2] + arr[arr.length-1]);
+          return fibonacci(num-1, count+1, arr);
         };
 
         $('#sheep-form').submit(function(event) {
@@ -144,6 +165,11 @@
           console.log(factorial(num));
         });
 
+        $('#fibonacci-form').submit(function(event) {
+          event.preventDefault();
+          const num = parseInt($('#fibonacci-input').val());
+          console.log(fibonacci(num));
+        });
       </script>
   </main>
 </body>
