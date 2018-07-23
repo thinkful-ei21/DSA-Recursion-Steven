@@ -1,0 +1,133 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Recursion drills</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+<body>
+  <main role="main">
+    <div class="row" id="title">
+      <h3 id="sheep-form-title">Sheep Form (result displayed in console)</h3>
+      <form id="sheep-form">
+        <input type="text" id="number-input" placeholder="num sheep to count">
+        <button type="submit" id="submit-button">Count Sheep</button>
+      </form>
+      <h3 id="array-double-form-title">Enter an array to be doubled (result displayed in console)</h3>
+      <form id="array-double-form">
+        <input type="text" id="array-double-input" placeholder="sample: '0 1 2 3 = [0,1,2,3]'">
+        <button type="submit" id="submit-array-double">Double Array</button>
+      </form>
+      <h3 id="reverse-string-form-title">Enter a string to be reversed (result displayed in console)</h3>
+      <form id="reverse-string-form">
+        <input type="text" id="reverse-string-input" placeholder="">
+        <button type="submit" id="reverse-string-button">Reverse String</button>
+      </form>
+      <h3 id="nth-triangle-form-title">Find nth triangle number (result displayed in console)</h3>
+      <form id="nth-triangle-form">
+        <input type="text" id="nth-triangle-input" placeholder="">
+        <button type="submit" id="nth-triangle-button">Find Nth triangle number</button>
+      </form>
+      <h3 id="string-splitter-form-title">Enter string to be split, and the character to split it on</h3>
+      <form id="string-splitter-form">
+        <input type="text" id="string-splitter-string" placeholder="Enter the string to be split">
+        <input type="text" id="string-splitter-split" placeholder="Enter the value to split it on">
+        <button type="submit" id="string-splitter-button">Split the string</button>
+      </form>
+      <h3 id="binary-form-title">Binary Representation</h3>
+      <form id="binary-form">
+        <input type="text" id="binary-input" placeholder="Enter number">
+        <button type="submit" id="binary-button">Get the binary</button>
+      </form>
+    </div>
+    <div class="row" id="results">
+      <!-- results go here -->
+    </div>
+      <script>
+
+        const countSheep = (input) => {
+          if(input === 0 || input[0] === ' ') {
+            return;
+          }
+          console.log(input + " - Another sheep jump over the fence");
+          return countSheep(input-1);
+        };
+
+        const doubleArray = (array) => {
+          if(array.length === 0 || array[0] === ' ') {
+            return [];
+          }
+          if(!isNaN(parseInt(array[0]))) {
+            return [parseInt(array[0])*2, ...doubleArray(array.substr(2, array.length-1))];
+          }
+        };
+
+        const reverseString = (str) => {
+          if(str === "") {
+            return "";
+          }
+          return str[str.length-1] + reverseString(str.substr(0, str.length-1));
+        };
+
+        const nthTriangle = (num) => {
+          if(num === 0) {
+            return 0;
+          }
+          return num + nthTriangle(num-1);
+        };
+
+        const stringSplitter = (str, spl, currentWord="") => {
+          if(str === "") {
+            return [currentWord];
+          }
+          if(str[0] === spl) {
+            return [currentWord, ...stringSplitter(str.substr(1), spl, "")];
+          }
+          return stringSplitter(str.substr(1), spl, (currentWord+str[0]));
+        };
+
+        const binary = (num) => {
+          if(num === 0) {
+            return "";
+          }
+          return binary(Math.floor(num/2)) + ("" + num%2);
+        };
+
+        $('#sheep-form').submit(function(event) {
+          event.preventDefault();
+          countSheep($('#number-input').val());
+        });
+
+        $('#array-double-form').submit(function(event) {
+          event.preventDefault();
+          const value = $('#array-double-input').val();
+          console.log(doubleArray(value + '  '));
+        });
+
+        $('#reverse-string-form').submit(function(event) {
+          event.preventDefault();
+          const str = $('#reverse-string-input').val();
+          console.log(reverseString(str));
+        });
+
+        $('#nth-triangle-form').submit(function(event) {
+          event.preventDefault();
+          const num = parseInt($('#nth-triangle-input').val());
+          console.log(nthTriangle(num));
+        });
+
+        $('#string-splitter-form').submit(function(event) {
+          event.preventDefault();
+          const str = $('#string-splitter-string').val();
+          const spl = $('#string-splitter-split').val()[0];
+          console.log(stringSplitter(str, spl, "", []));
+        });
+
+        $('#binary-form').submit(function(event) {
+          event.preventDefault();
+          const num = parseInt($('#binary-input').val());
+          console.log(binary(num));
+        });
+
+      </script>
+  </main>
+</body>
