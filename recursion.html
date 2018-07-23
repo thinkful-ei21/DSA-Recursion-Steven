@@ -38,6 +38,11 @@
         <input type="text" id="binary-input" placeholder="Enter number">
         <button type="submit" id="binary-button">Get the binary</button>
       </form>
+      <h3 id="factorial-form-title">Factorial</h3>
+      <form id="factorial-form">
+        <input type="text" id="factorial-input" placeholder="Enter number">
+        <button type="submit" id="factorial-button">Get the factorial</button>
+      </form>
     </div>
     <div class="row" id="results">
       <!-- results go here -->
@@ -92,6 +97,11 @@
           return binary(Math.floor(num/2)) + ("" + num%2);
         };
 
+        const factorial = (num) => {
+          if(num < 2)   return 1;
+          return num * factorial(num-1);
+        };
+
         $('#sheep-form').submit(function(event) {
           event.preventDefault();
           countSheep($('#number-input').val());
@@ -126,6 +136,12 @@
           event.preventDefault();
           const num = parseInt($('#binary-input').val());
           console.log(binary(num));
+        });
+
+        $('#factorial-form').submit(function(event) {
+          event.preventDefault();
+          const num = parseInt($('#factorial-input').val());
+          console.log(factorial(num));
         });
 
       </script>
